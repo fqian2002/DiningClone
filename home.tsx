@@ -58,7 +58,7 @@ export default function Home({navigation}: nav) {
                 backgroundColor: isDarkMode ? Colors.black : Colors.white,
             }}>
             <Section title="Step One">
-                Edit <Text style={styles.highlight} onPress={() => navigation.navigate('Pass')}>App.tsx</Text> to change this
+                Edit <Text style={styles.customFont} onPress={() => navigation.navigate('Pass')}>App.tsx</Text> to change this
                 screen and then come back to see your edits.
             </Section>
             <Section title="See Your Changes">
@@ -68,7 +68,7 @@ export default function Home({navigation}: nav) {
                 <DebugInstructions />
             </Section>
             <Section title="Learn More">
-                Read the docs to discover what to do next: 
+                Read the docs to discover what to do next: <Text style={{fontFamily:'Hevetica'}}>Read</Text> <Text style={{fontFamily:'Times New Roman'}}>Read</Text>
             </Section>
             <LearnMoreLinks />
             </View>
@@ -94,4 +94,9 @@ const styles = StyleSheet.create({
     highlight: {
         fontWeight: '700',
     },
+    customFont: {
+        fontFamily: 'Helvetica',
+        fontSize: 25,
+        fontWeight: 'bold',
+      },
 });

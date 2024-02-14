@@ -4,17 +4,19 @@
  *
  * @format
  */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Home from './home'
 import Pass from './pass'
 import Uploader from './uploader'
-import Icon from 'react-native-vector-icons/Entypo';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Image, ImageSourcePropType } from 'react-native';
+
+import { NativeBaseProvider, Box } from "native-base";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -25,9 +27,6 @@ function App(): React.JSX.Element {
     const screenOptions = {
       headerTintColor: '#fff',
       headerStyle: { backgroundColor: 'white' },
-      headerBackImage: () => (
-        <Icon name="rocket" size={30} color="#900" />
-      ),
     };
 
     const options = {
@@ -36,10 +35,13 @@ function App(): React.JSX.Element {
       headerTintColor: 'black',
       headerBackTitleStyle: {
         fontSize: 16,
-        fontFamily: 'Arial'
+      },
+      headerTitleStyle: {
+        fontSize: 19,
+        fontFamily: 'EuphemiaUCAS-Bold'
       },
       headerBackImage: () => (
-        <Icon name="chevron-small-left" size={22} color="black" />
+        <EntypoIcon name="chevron-small-left" size={22} color="black" />
       ),
     }
 
@@ -52,23 +54,45 @@ function App(): React.JSX.Element {
     );
   }
 
+  const col = '#175792'
+  const col_uf = 'gray'
+  const sz = 22
+
   return (
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{tabBarActiveBackgroundColor: '#e9f3fb'}}>
           <Tab.Screen
             name="Home"
             component={HomeStack}
-            options={{ headerShown: false }}
+            options={{ 
+              headerShown: false, 
+              tabBarIcon: ({focused, color, size=sz}) => (!focused ? <Ionicon name = "home-outline" size = {sz} color ={col_uf} />  : <Ionicon name = "home-sharp" size = {sz} color = {col}/>),
+              tabBarItemStyle: {borderTopWidth:2, borderColor: '#0077db'}
+            }}
           />
           <Tab.Screen name="Accounts" 
-          component={Pass} 
-          options={{title: 'Scan Card'}}/>
-          <Tab.Screen name="Order" 
-          component={Pass} />
+            component={Pass} 
+            options={{
+              tabBarIcon: ({focused, color, size=sz}) => (!focused ? <Ionicon name = "bag-outline" size = {sz} color = {col_uf}/> : <Ionicon name = "bag" size = {sz} color = {col}/>)
+            }}
+          />
+          <Tab.Screen name="Settings" 
+            component={Pass}
+            options={{
+              tabBarIcon: ({focused, color, size=sz}) => (!focused ? <Ionicon name = "settings-outline" size = {sz} color = {col_uf}/> : <Ionicon name = "settings-sharp" size = {sz} color = {col}/>)            }}
+          />
           <Tab.Screen name="Rewards" 
-          component={Pass} />
+            component={Pass} 
+            options={{
+              tabBarIcon: ({focused, color, size=sz}) => (!focused ? <Ionicon name = "trophy-outline" size = {sz} color = {col_uf}/> : <Ionicon name = "trophy" size = {sz} color = {col}/>)
+            }}
+          />
           <Tab.Screen name="more" 
-          component={Uploader} />
+            component={Uploader} 
+            options={{
+              tabBarIcon: ({focused, color, size=sz}) => {return <Octicons name = "three-bars" size = {sz} color = {col_uf}/>}
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
   );

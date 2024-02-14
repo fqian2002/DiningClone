@@ -11,7 +11,7 @@ export default function Uploader(){
 
         ImagePicker.openPicker({
             width: Dimensions.get('window').width,
-            height: 675,
+            height: 665,
             cropping: true,
             compressImageQuality: .8
           }).then(image => {
