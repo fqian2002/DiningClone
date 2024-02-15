@@ -1,102 +1,100 @@
-import { PropsWithChildren } from "react";
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, useColorScheme } from "react-native";
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from "react-native/Libraries/NewAppScreen";
-
-type SectionProps = PropsWithChildren<{
-    title: string;
-  }>;
-  
-function Section({children, title}: SectionProps): React.JSX.Element {
-    const isDarkMode = useColorScheme() === 'dark';
-    return (
-        <View style={styles.sectionContainer}>
-        <Text
-            style={[
-            styles.sectionTitle,
-            {
-                color: isDarkMode ? Colors.white : Colors.black,
-            },
-            ]}>
-            {title}
-        </Text>
-        <Text
-            style={[
-            styles.sectionDescription,
-            {
-                color: isDarkMode ? Colors.light : Colors.dark,
-            },
-            ]}>
-            {children}
-        </Text>
-        </View>
-    );
-}
+import {
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  TouchableHighlight,
+} from 'react-native';
+import {
+  NativeBaseProvider,
+  Box,
+  Container,
+  VStack,
+  Center,
+  AspectRatio,
+  Image,
+  Stack,
+  Heading,
+  Text,
+  Button,
+  extendTheme,
+} from 'native-base';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {background} from 'native-base/lib/typescript/theme/styled-system';
+import {useState} from 'react';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type nav = {
-    navigation: any
-}
-
+  navigation: any;
+};
+//<Text onPress={() => navigation.navigate('Pass')}>App.tsx</Text>
 export default function Home({navigation}: nav) {
-    const isDarkMode = useColorScheme() === 'dark';
 
-    const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    };
-
-    return (
-        <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={backgroundStyle}>
-            <Header />
-            <View
-            style={{
-                backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <Section title="Step One">
-                Edit <Text style={styles.customFont} onPress={() => navigation.navigate('Pass')}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
-            </Section>
-            <Section title="See Your Changes">
-                <ReloadInstructions />
-            </Section>
-            <Section title="Debug">
-                <DebugInstructions />
-            </Section>
-            <Section title="Learn More">
-                Read the docs to discover what to do next: <Text style={{fontFamily:'Hevetica'}}>Read</Text> <Text style={{fontFamily:'Times New Roman'}}>Read</Text>
-            </Section>
-            <LearnMoreLinks />
-            </View>
+  return (
+    <NativeBaseProvider>
+      <SafeAreaView style={{backgroundColor: '#fdfdfd'}}>
+        <ScrollView>
+          <Center flex={1}>
+            <Box
+              maxW="96%"
+              rounded="xl"
+              overflow="hidden"
+              borderColor="coolGray.200"
+              borderWidth="1"
+              backgroundColor="#01274c"
+              flex={1}>
+              <Box>
+                <AspectRatio w="100%" ratio={476 / 288}>
+                  <Image
+                    source={require('./assets/BlueBox.jpg')}
+                    alt="image"
+                    flex={1}
+                    width={'100%'}
+                    height={'100%'}
+                    resizeMode="contain"
+                  />
+                </AspectRatio>
+              </Box>
+              <Stack p="2.5" pt=".7">
+                <TouchableHighlight
+                  onPress={() => navigation.navigate('Pass')}
+                  style={{
+                    backgroundColor: '#002445',
+                    borderRadius: 8,
+                    padding: 6,
+                  }}
+                  underlayColor={'#00509a'}>
+                  <Center>
+                    <AntDesign name="barcode" size={20} color={'white'} />
+                    <Text color={'white'} fontSize={10}>
+                      Scan Card
+                    </Text>
+                  </Center>
+                </TouchableHighlight>
+              </Stack>
+            </Box>
+            
+          </Center>
+          <AspectRatio w="100%" ratio={30/47}>
+          <Image
+              source={require('./assets/Home1.jpg')}
+              alt="home"
+              width={'100%'}
+              height={'100%'}
+              resizeMode="contain"
+              flex={1}
+            />
+            </AspectRatio>
+            <AspectRatio w="100%" ratio={30/30}>
+            <Image
+            source={require('./assets/Home2.jpg')}
+            alt="x"
+            width={'100%'}
+              height={'100%'}
+            resizeMode="contain"
+            flex={1}/>
+            </AspectRatio>
         </ScrollView>
-        </SafeAreaView>
-    );
+      </SafeAreaView>
+    </NativeBaseProvider>
+  );
 }
-
-const styles = StyleSheet.create({
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-    },
-    highlight: {
-        fontWeight: '700',
-    },
-    customFont: {
-        fontFamily: 'Helvetica',
-        fontSize: 25,
-        fontWeight: 'bold',
-      },
-});
